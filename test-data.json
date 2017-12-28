@@ -1,0 +1,14 @@
+[
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"widgets.kinopoisk.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"plus.kinopoisk.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"bbc.vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"2222222bbc.vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"cbc.vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"dbcd.vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"dsd.dbcd.vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"d5d.d5cd.vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"ds6.dbcd.vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"ds7.dbcd.vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"vkontakte.ru\""},
+    {"violated-directive":"\"default-src\"","blocked_uri":"\"undefined\""}
+]

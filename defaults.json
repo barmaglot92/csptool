@@ -1,0 +1,15 @@
+{
+    "default-src": ["'none'"],
+    "style-src": [
+        "'self'"
+    ],
+    "script-src": [
+        "'self'"
+    ],
+    "img-src": [
+        "'self'"
+    ], 
+    "frame-src": [
+        "'self'"
+    ]
+}
