@@ -14,7 +14,7 @@ module.exports = {
     transformCspChunk: es.mapSync((chunk = {}) => {
         const match = domainFilter(chunk.blocked_uri);
 
-        if (!match) {
+        if (!match || !chunk['violated-directive']) {
             return;
         }
 

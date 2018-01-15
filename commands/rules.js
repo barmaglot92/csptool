@@ -1,7 +1,8 @@
 const {domainFilter} = require('lib.js');
+const path = require('path');
 
 function main(input, {output, whiteList, reportUri = ''}) {
-    const directives = require(input);
+    const directives = require(path.resolve(input));
 
     let cspRules = Object.keys(directives).map(directive => {
         let rules = directives[directive];
@@ -16,7 +17,7 @@ function main(input, {output, whiteList, reportUri = ''}) {
         }
 
         if (rules.length > 0) {
-            return `${directive} ${rules.join('\n')}`;
+            return `${directive} ${rules.join(' ')}`;
         }
     }).filter(Boolean);
 
@@ -25,14 +26,15 @@ function main(input, {output, whiteList, reportUri = ''}) {
         return;
     }
     if (reportUri) {
-        reportUri = `;\nreport-uri ${reportUri}`;
+        reportUri = `;report-uri ${reportUri}`;
     }
-    cspRules = cspRules.join(';\n');
+
+    cspRules = cspRules.join(';');
     cspRules = cspRules.replace(/"/g, '\'');
     cspRules += reportUri;
 
     if (output) {
-        const filePath = require('path').resolve('./out', output);
+        const filePath = path.resolve('./out', output);
         require('fs').writeFileSync(filePath, cspRules);
         console.log('%s writted', filePath);
     } else {

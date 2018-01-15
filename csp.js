@@ -25,6 +25,11 @@ require('yargs')
                 type: 'boolean',
                 desc: 'Add https and http protocol to generated domain names'
             })
+            .option('whiteList', {
+                alias: 'wl',
+                type: 'string',
+                desc: 'Approved domains list in JSON format'
+            })
             .option('defaults', {
                 default: './defaults.json',
                 alias: 'd',
@@ -33,13 +38,18 @@ require('yargs')
             });
     }, args => {
         const {input, output, repeats, autoSchema} = args;
+        let {whiteList} = args;
         let defaults;
     
         if (args.defaults) {
             defaults = require(args.defaults);
         }
 
-        require('./commands/directives')(input, {output, repeats, autoSchema, defaults});
+        if (args.whiteList) {
+            whiteList = require(args.whiteList);
+        }
+
+        require('./commands/directives')(input, {output, repeats, autoSchema, defaults, whiteList});
     })
     .command('rules', 'Create csp header from directives', yargs => {
         return yargs

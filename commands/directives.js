@@ -5,8 +5,14 @@ const {transformCspChunk, getWildcard} = require('lib.js');
 const wildcardHash = {};
 const directives = {};
 
-function generateWildcardHash(directive, blocked_uri) {
+function generateWildcardHash(directive, blocked_uri, whiteList) {
     const domainWildcard = getWildcard(blocked_uri);
+
+    if (whiteList) {
+        if (whiteList.indexOf(blocked_uri) === -1) {
+            return;
+        }
+    }
     
     if (!wildcardHash[directive]) {
         wildcardHash[directive] = {};
@@ -27,7 +33,7 @@ function convertToDirectives({repeats = 3, autoSchema, defaults = {}} = {}) {
 
         Object.keys(wildcardHash[directiveName]).forEach(domainWildcard => {
             let domainsToPush = [];
-            const domains = wildcardHash[directiveName][domainWildcard]  ;
+            const domains = wildcardHash[directiveName][domainWildcard];
 
             if (domains.length >= repeats) {
                 // use wildcard
@@ -48,11 +54,11 @@ function convertToDirectives({repeats = 3, autoSchema, defaults = {}} = {}) {
     }, defaults));
 }
 
-function main(input, {output, repeats, autoSchema, defaults}) {
+function main(input, {output, repeats, autoSchema, defaults, whiteList}) {
     fs.createReadStream(input)
         .pipe(JSONStream.parse('*'))
         .pipe(transformCspChunk)
-        .on('data', ({directive, blocked_uri}) => generateWildcardHash(directive, blocked_uri))
+        .on('data', ({directive, blocked_uri}) => generateWildcardHash(directive, blocked_uri, whiteList))
         .on('end', () => {
             convertToDirectives({repeats, autoSchema, defaults});
             if (output) {
